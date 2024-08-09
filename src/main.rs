@@ -24,7 +24,7 @@ fn main() {
     loop {
         if start.elapsed().as_secs() >= (current + 1) {
              print!("\rTime elapsed: {}m {}s", start.elapsed().as_secs() / 60, start.elapsed().as_secs()%60);
-            io::stdout().flush();
+         let _flush =   io::stdout().flush();
             current = start.elapsed().as_secs();
         }
         if start.elapsed() >= duration {
@@ -32,5 +32,5 @@ fn main() {
         }
     }
     print!("\rTime up!       ");
-    io::stdout().flush();
+    let _flush = io::stdout().flush();
 }
