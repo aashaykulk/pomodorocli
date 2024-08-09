@@ -1,5 +1,7 @@
 use std::io;
 use std::time::{Duration, Instant};
+use std::io::Write;
+//use crossterm::cursor::{Hide, Show};
 
 fn main() {
     println!("Please enter time for your pomodoro session.");
@@ -18,11 +20,17 @@ fn main() {
     let total = m*60 + s;
     let duration = Duration::from_secs(total);
     let start = Instant::now();
+    let mut current = 0;
     loop {
+        if start.elapsed().as_secs() >= (current + 1) {
+             print!("\rTime elapsed: {}m {}s", start.elapsed().as_secs() / 60, start.elapsed().as_secs()%60);
+            io::stdout().flush();
+            current = start.elapsed().as_secs();
+        }
         if start.elapsed() >= duration {
-            println!("Time Up!");
             break;
         }
     }
-
+    print!("\rTime up!       ");
+    io::stdout().flush();
 }
